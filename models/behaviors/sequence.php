@@ -46,7 +46,7 @@
  * @copyright (c) 2010 Neil Crookes
  * @license MIT License - http://www.opensource.org/licenses/mit-license.php
  * @link http://www.neilcrookes.com
- * 
+ *
  * @package cake
  * @subpackage cake.base
  */
@@ -155,7 +155,7 @@ class SequenceBehavior extends ModelBehavior {
 
   /**
    * Adds order value if not already set in query data
-   * 
+   *
    * @param Model $model Model object that method is triggered on
    * @param array $queryData Original queryData
    * @return array Modified queryData
@@ -172,7 +172,7 @@ class SequenceBehavior extends ModelBehavior {
     }
 
     return $queryData;
-    
+
   }
 
   /**
@@ -590,6 +590,13 @@ class SequenceBehavior extends ModelBehavior {
         $update['conditions']
       );
 
+      // unbind associations first, because updateAll is kinda ugly
+      $model->unbind(array(
+        'belongsTo' => $model->belongsTo,
+        'hasOne' => $model->hasOne,
+        'hasMany' => $model->hasMany,
+        'hasAndBelongsToMany' => $model->hasAndBelongsToMany
+      ));
       $success = $model->updateAll($update['action'], $conditions);
 
       $return = $return && $success;
@@ -601,4 +608,3 @@ class SequenceBehavior extends ModelBehavior {
   }
 
 }
-?>
