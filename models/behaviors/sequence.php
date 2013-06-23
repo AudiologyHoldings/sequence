@@ -591,7 +591,7 @@ class SequenceBehavior extends ModelBehavior {
       );
 
       // unbind associations first, because updateAll is kinda ugly
-      $model->unbind(array(
+      $model->unbindModel(array(
         'belongsTo' => $model->belongsTo,
         'hasOne' => $model->hasOne,
         'hasMany' => $model->hasMany,
