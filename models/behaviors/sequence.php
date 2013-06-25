@@ -322,8 +322,10 @@ class SequenceBehavior extends ModelBehavior {
    * @return boolean
    */
   public function afterSave(&$model, $created) {
-
-    return $this->_updateAll($model);
+    $initId = $model->id;
+    $retval = $this->_updateAll($model);
+    $model->id = $initId;
+    return $retval;
 
   }
 
@@ -592,10 +594,10 @@ class SequenceBehavior extends ModelBehavior {
 
       // unbind associations first, because updateAll is kinda ugly
       $model->unbindModel(array(
-        'belongsTo' => $model->belongsTo,
-        'hasOne' => $model->hasOne,
-        'hasMany' => $model->hasMany,
-        'hasAndBelongsToMany' => $model->hasAndBelongsToMany
+        'belongsTo' => array_keys($model->belongsTo),
+        'hasOne' => array_keys($model->hasOne),
+        'hasMany' => array_keys($model->hasMany),
+        'hasAndBelongsToMany' => array_keys($model->hasAndBelongsToMany),
       ));
       $success = $model->updateAll($update['action'], $conditions);
 
