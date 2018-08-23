@@ -1,0 +1,8 @@
+{
+  "name": "audiologyholdings/sequence",
+  "description": "CakePHP Behavior in a plugin to maintain a contiguous sequence",
+  "type": "cakephp-plugin",
+  "require": {
+    "cakephp/cakephp": ">=2.5.5.4 <3.0.0"
+  }
+}
